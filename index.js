@@ -1,11 +1,28 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 const { sequelize } = require('./models');
 const routes = require('./routes/index');
 
 const app = express();
-app.use(bodyParser.json());
 
+const allowedOrigins = [
+  'http://localhost:3000'
+];
+
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin) return callback(null, true);
+
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    } else {
+      return callback(new Error('No permitido por CORS'));
+    }
+  }
+}));
+
+app.use(bodyParser.json());
 app.use('/api', routes);
 
 const PORT = 4001;
