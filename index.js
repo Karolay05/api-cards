@@ -7,7 +7,8 @@ const routes = require('./routes/index');
 const app = express();
 
 const allowedOrigins = [
-  'http://localhost:3000'
+  'http://localhost:3000',
+  'https://tayta-front.onrender.com',
 ];
 
 app.use(cors({
